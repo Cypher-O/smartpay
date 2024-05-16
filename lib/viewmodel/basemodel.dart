@@ -89,13 +89,14 @@ class BaseModel extends BaseViewModel {
   }
 
   //For displaying a success page
-  showSuccessScreen(BuildContext context, String title, String subtitle,
+  showSuccessScreen(BuildContext context, String image, String title, String subtitle,
       String buttonText, Function? callback,
       {String? navigateTo}) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
         return SuccessWidget(
+          image: image,
           title: title,
           subtitle: subtitle,
           callback: callback,

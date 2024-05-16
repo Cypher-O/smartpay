@@ -18,12 +18,14 @@ export '../../views/reusableWidgets/failureWidget.dart';
 export '../../views/reusableWidgets/amountPrefixIcon.dart';
 export '../../views/reusableWidgets/customSwitch.dart';
 export '../../views/reusableWidgets/animatedHourGlass.dart';
+export '../../views/reusableWidgets/customKeyboard.dart';
 
 //authentication
 export '../../views/reusableWidgets/dropdownField.dart';
 export '../../views/reusableWidgets/textfieldWidget.dart';
-export '../../views/reusableWidgets/otpfieldWidget.dart';
+export '../../views/reusableWidgets/otpInputBox.dart';
 export '../../views/reusableWidgets/rectangularTile.dart';
+export '../../views/reusableWidgets/pinCode.dart';
 
 //home
 // export '../../views/reusableWidgets/home/profileHeader.dart';

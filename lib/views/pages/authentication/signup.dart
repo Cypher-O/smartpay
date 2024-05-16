@@ -82,14 +82,15 @@ class SignupScreen extends StatelessWidget {
 
                           ButtonWidget(
                             () {
-                              // model.login(context);
-                              // context.goNamed(homeRoute);
+                              if (model.emailFunctionSatisfied) {
+                                context.goNamed(otpVerificationRoute);
+                              }
                             },
                             model.emailFunctionSatisfied
                                 ? blueDark
                                 : disabledButton,
                             // AppColors.blue(),
-                            338,
+                            382,
                             60,
                             Text(
                               "Sign Up",

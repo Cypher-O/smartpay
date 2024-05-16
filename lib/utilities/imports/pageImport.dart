@@ -12,9 +12,11 @@ export '../../views/pages/authentication/signup.dart';
 export '../../views/pages/authentication/login.dart';
 export '../../views/pages/authentication/verifyIdentity.dart';
 // export '../../views/pages/authentication/camera.dart';
-// export '../../views/pages/authentication/otpVerification.dart';
+export '../../views/pages/authentication/otpVerification.dart';
 export '../../views/pages/authentication/createPassword.dart';
 export '../../views/pages/authentication/forgotPassword.dart';
+export '../../views/pages/authentication/signupForm.dart';
+export '../../views/pages/authentication/setPinCode.dart';
 // export '../../views/pages/authentication/securityQuestion.dart';
 // export '../../views/pages/authentication/setNewPassword.dart';
 

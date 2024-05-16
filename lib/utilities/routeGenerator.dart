@@ -44,7 +44,26 @@ final router = GoRouter(
       path: '/signup',
       pageBuilder: (context, state) =>
           MaterialPage<void>(key: state.pageKey, child: const SignupScreen()),
-      routes: [],
+      routes: [
+        GoRoute(
+          name: otpVerificationRoute,
+          path: 'otpVerification',
+          pageBuilder: (context, state) => MaterialPage<void>(
+              key: state.pageKey, child: const OtpVerification()),
+        ),
+        GoRoute(
+          name: signupFormRoute,
+          path: 'signupForm',
+          pageBuilder: (context, state) =>
+              MaterialPage<void>(key: state.pageKey, child: const SignupForm()),
+        ),
+        GoRoute(
+          name: setPinCodeRoute,
+          path: 'setPinCode',
+          pageBuilder: (context, state) =>
+              MaterialPage<void>(key: state.pageKey, child: const SetPinCode()),
+        ),
+      ],
     ),
     GoRoute(
       name: loginRoute,
@@ -55,20 +74,20 @@ final router = GoRouter(
         GoRoute(
           name: forgotPasswordRoute,
           path: 'forgotPassword',
-          pageBuilder: (context, state) =>
-            MaterialPage<void>(key: state.pageKey, child: const ForgotPassword()),
+          pageBuilder: (context, state) => MaterialPage<void>(
+              key: state.pageKey, child: const ForgotPassword()),
         ),
         GoRoute(
           name: verifyIdentityRoute,
           path: 'verifyIdentity',
-          pageBuilder: (context, state) =>
-            MaterialPage<void>(key: state.pageKey, child: const VerifyIdentity()),
+          pageBuilder: (context, state) => MaterialPage<void>(
+              key: state.pageKey, child: const VerifyIdentity()),
         ),
         GoRoute(
           name: createPasswordRoute,
           path: 'createPassword',
-          pageBuilder: (context, state) =>
-            MaterialPage<void>(key: state.pageKey, child: const CreatePassword()),
+          pageBuilder: (context, state) => MaterialPage<void>(
+              key: state.pageKey, child: const CreatePassword()),
         ),
       ],
     ),

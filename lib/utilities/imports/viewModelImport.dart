@@ -13,7 +13,10 @@ export '../../viewmodel/authentication/verifyIdentity.dart';
 export '../../viewmodel/authentication/forgotPassword.dart';
 export '../../viewmodel/authentication/createPassword.dart';
 // export '../../viewmodel/authentication/cameraModel.dart';
-// export '../../viewmodel/authentication/otpVerification.dart';
+export '../../viewmodel/authentication/otpVerification.dart';
+export '../../viewmodel/authentication/signupForm.dart';
+export '../../viewmodel/authentication/setPinCode.dart';
+export '../../viewmodel/authentication/pinCode.dart';
 
 // //home view models
 export '../../viewmodel/home/home.dart';
