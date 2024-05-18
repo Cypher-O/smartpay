@@ -1,5 +1,4 @@
 import '../../../utilities/imports/generalImport.dart';
-
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({Key? key}) : super(key: key);
 
@@ -13,24 +12,22 @@ class OnboardingPage extends StatelessWidget {
             mainText: 'Finance app the safest and most trusted',
             subText:
                 'Your finance work starts here. We are here to help you track and deal with speeding up your transactions.',
-            image: 'onboarding_device1.png',
-            icon: 'images/privacy_lock.png',
+            image: 'assets/onboarding_device1.png',
+            icon: 'assets/images/privacy_lock.png',
           ),
           const PageWidget(
             mainText: 'The fastest transaction process only here',
             subText:
                 'Get easy to pay all your bills with just a few steps. Paying your bills become fast and efficient.',
-            image: 'onboarding_device2.png',
-            icon: "",
+            image: 'assets/onboarding_device2.png',
+            icon: 'assets/images/privacy_lock.png',
           ),
         ];
         model.setPages(_pages);
       },
       disposeViewModel: false,
-      builder: (context, model, child) => WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
+      builder: (context, model, child) => PopScope(
+        canPop: false,
         child: BaseUi(
             refreshedEnabled: false,
             resizeToAvoidBottomInset: false,
@@ -60,12 +57,25 @@ class OnboardingPage extends StatelessWidget {
                                 curve: Curves.easeIn);
                           },
                           child: model.currentPage == index
-                              ? CircleAvatar(
-                                  radius: 6,
-                                  backgroundColor: AppColors.blueDark)
+                              ? Container(
+                                  width: 24,
+                                  height: 6,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(32.0),
+                                    color: AppColors.blueDark,
+                                  ),
+                                )
                               : CircleAvatar(
                                   radius: 4,
                                   backgroundColor: AppColors.gray5()),
+
+                          // child: model.currentPage == index
+                          //     ? CircleAvatar(
+                          //         radius: 6,
+                          //         backgroundColor: AppColors.blueDark)
+                          //     : CircleAvatar(
+                          //         radius: 4,
+                          //         backgroundColor: AppColors.gray5()),
                         ),
                       ),
                     ),

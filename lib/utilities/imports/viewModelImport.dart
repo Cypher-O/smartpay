@@ -23,3 +23,6 @@ export '../../viewmodel/home/home.dart';
 
 //theme view models
 export '../../viewmodel/themeSettings.dart';
+
+//account view models
+export '../../viewmodel/account/account.dart';

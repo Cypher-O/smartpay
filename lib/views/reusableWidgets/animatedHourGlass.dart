@@ -24,11 +24,10 @@ class _AnimatedHourglassState extends State<AnimatedHourglass>
       turns: _controller,
       child: const Icon(
         Icons.hourglass_empty_rounded,
-        color: AppColors.whiteLight,
-        size: 20,
+        color: blueDark,
+        size: 30,
       ),
     );
-    
   }
 
   @override

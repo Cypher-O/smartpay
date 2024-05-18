@@ -85,7 +85,7 @@ class SetPinCode extends StatelessWidget {
                     () {
                       model.showSuccessScreen(
                         context,
-                        "icons/thumbs-up.png",
+                        "assets/icons/thumbs-up.png",
                         "Congratulations, James",
                         "You've completed the onboarding, you can start using",
                         "Get Started",

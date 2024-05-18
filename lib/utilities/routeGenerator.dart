@@ -40,6 +40,13 @@ final router = GoRouter(
       routes: [],
     ),
     GoRoute(
+      name: accountRoute,
+      path: '/account',
+      pageBuilder: (context, state) =>
+          MaterialPage<void>(key: state.pageKey, child: const Account()),
+      routes: [],
+    ),
+    GoRoute(
       name: signupRoute,
       path: '/signup',
       pageBuilder: (context, state) =>

@@ -24,18 +24,14 @@ class BaseUi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return ViewModelBuilder<BaseModel>.reactive(
         viewModelBuilder: () => BaseModel(),
-        onViewModelReady: (model) async {
-        },
+        onViewModelReady: (model) async {},
         onDispose: (model) {},
         disposeViewModel: false,
         builder: (context, model, child) {
-          return WillPopScope(
-              onWillPop: () async {
-                return allowBackButton ?? true;
-              },
+          return PopScope(
+              canPop: allowBackButton ?? true,
               child: !refreshedEnabled
                   ? Scaffold(
                       appBar: appBar,

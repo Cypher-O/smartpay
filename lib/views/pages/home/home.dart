@@ -14,10 +14,8 @@ class _HomeState extends State<Home> {
         viewModelBuilder: () => HomeViewModel(),
         onViewModelReady: (model) async {},
         disposeViewModel: false,
-        builder: (context, model, child) => WillPopScope(
-            onWillPop: () async {
-              return true;
-            },
+        builder: (context, model, child) => PopScope(
+            canPop: true,
             child: BaseUi(
                 // allowBackButton: false,
                 refreshedEnabled: true,

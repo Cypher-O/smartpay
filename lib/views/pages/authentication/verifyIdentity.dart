@@ -30,25 +30,25 @@ class VerifyIdentity extends StatelessWidget {
                   ),
                   padding: EdgeInsets.all(10.0),
                   child: Image.asset(
-                    "icons/verify_identity.png",
+                    "assets/icons/verify_identity.png",
                     height: 40.0,
                     width: 40.0,
                   ),
                 ),
                 Positioned(
                   top: 60.0,
-                  left: 55.0,
+                  left: 57.0,
                   child: Image.asset(
-                    "icons/verify_identity_highlight.png",
-                    height: 20.0,
-                    width: 20.0,
+                    "assets/icons/verify_identity_highlight.png",
+                    height: 17.0,
+                    width: 17.0,
                   ),
                 ),
               ],
             ),
           ),
           rowPositioned(
-            top: 220,
+            top: 240,
             left: 16,
             child: GeneralTextDisplay("Verify your identity", AppColors.black(),
                 1, 20, FontWeight.w700, ""),
@@ -69,7 +69,7 @@ class VerifyIdentity extends StatelessWidget {
           // ),
 
           rowPositioned(
-            top: 260,
+            top: 280,
             left: 16,
             child: Container(
               width: sS(context).w - 30,
@@ -95,7 +95,7 @@ class VerifyIdentity extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: sS(context).cH(height: 340),
+            top: sS(context).cH(height: 360),
             left: sS(context).cW(width: 16),
             bottom: sS(context).cH(height: 0),
             right: sS(context).cW(width: 16),

@@ -13,10 +13,8 @@ class SplashScreen extends StatelessWidget {
         model.setTheme(context);
       },
       disposeViewModel: false,
-      builder: (context, model, child) => WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
+      builder: (context, model, child) => PopScope(
+        canPop: false,
         child: FutureBuilder(
             future: Future.delayed(const Duration(seconds: 2)),
             builder: (context, snapshot) {

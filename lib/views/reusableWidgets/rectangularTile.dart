@@ -9,20 +9,26 @@ class RectangularTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 70,
-      width: 180,
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.grey()),
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.transparent,
-      ),
-      child: Image.asset(
-        imagePath!,
-        height: 20,
-        width: 20,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+          height: 50,
+          width: 120,
+          padding: EdgeInsets.all(15.0),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.grey()),
+            borderRadius: BorderRadius.circular(15.0),
+            color: Colors.transparent,
+          ),
+          child: Image.asset(
+            imagePath!,
+            height: 20,
+            width: 20,
+          ),
+        ),
+      ],
     );
   }
 }

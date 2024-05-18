@@ -19,6 +19,7 @@ export '../../views/reusableWidgets/amountPrefixIcon.dart';
 export '../../views/reusableWidgets/customSwitch.dart';
 export '../../views/reusableWidgets/animatedHourGlass.dart';
 export '../../views/reusableWidgets/customKeyboard.dart';
+export '../../views/reusableWidgets/tabController.dart';
 
 //authentication
 export '../../views/reusableWidgets/dropdownField.dart';

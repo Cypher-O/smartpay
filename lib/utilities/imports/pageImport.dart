@@ -20,6 +20,9 @@ export '../../views/pages/authentication/setPinCode.dart';
 // export '../../views/pages/authentication/securityQuestion.dart';
 // export '../../views/pages/authentication/setNewPassword.dart';
 
+// account pages
+export '../../views/account/account.dart';
+
 // // value added services pages
 // export '../../views/pages/vas/vas.dart';
 // export '../../views/pages/vas/airtime/airtimePage.dart';

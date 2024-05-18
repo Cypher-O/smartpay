@@ -83,7 +83,7 @@ class SignupScreen extends StatelessWidget {
                           ButtonWidget(
                             () {
                               if (model.emailFunctionSatisfied) {
-                                context.goNamed(otpVerificationRoute);
+                                model.sendEmailOtp(context);
                               }
                             },
                             model.emailFunctionSatisfied
@@ -140,12 +140,14 @@ class SignupScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
                               // google button
-                              RectangularTile(imagePath: 'images/google.png'),
+                              RectangularTile(
+                                  imagePath: 'assets/images/google.png'),
 
                               SizedBox(width: 15),
 
                               // apple button
-                              RectangularTile(imagePath: 'images/apple.png')
+                              RectangularTile(
+                                  imagePath: 'assets/images/apple.png'),
                             ],
                           ),
                           S(h: 30),

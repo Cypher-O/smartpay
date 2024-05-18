@@ -147,11 +147,11 @@ class LoginScreen extends StatelessWidget {
                           S(h: 25),
                           ButtonWidget(
                             () {
-                              // model.login(context);
+                              model.login(context);
                               // context.goNamed(homeRoute);
                             },
                             AppColors.blue(),
-                            338,
+                            382,
                             60,
                             Text(
                               "Sign In",
@@ -201,12 +201,14 @@ class LoginScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
                               // google button
-                              RectangularTile(imagePath: 'images/google.png'),
+                              RectangularTile(
+                                  imagePath: 'assets/images/google.png'),
 
                               SizedBox(width: 15),
 
                               // apple button
-                              RectangularTile(imagePath: 'images/apple.png')
+                              RectangularTile(
+                                  imagePath: 'assets/images/apple.png')
                             ],
                           ),
                           S(h: 30),

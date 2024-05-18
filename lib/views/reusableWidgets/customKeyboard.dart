@@ -8,9 +8,10 @@ class CustomKeyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,7 +78,7 @@ class CustomKeyboard extends StatelessWidget {
 
   Widget _buildEraseButton() {
     return InkWell(
-      onTap: () => onKeyPressed('x'), // 'x' for erase
+      onTap: () => onKeyPressed('x'), 
       child: Padding(
         padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 0.0),
         child: Container(

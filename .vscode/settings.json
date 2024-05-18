@@ -1,5 +1,6 @@
 {
     "java.project.sourcePaths": [
         "lib/viewmodel/authentication"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

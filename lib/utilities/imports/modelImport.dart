@@ -1,5 +1,10 @@
-// //authentication
-// export 'package:pcash/models/authentication/user.dart';
+//authentication
+export 'package:smartpay/models/authentication/getCountries.dart';
+export 'package:smartpay/models/authentication/sendEmailOtp.dart';
+export 'package:smartpay/models/authentication/verifyEmailOtp.dart';
+export 'package:smartpay/models/authentication/register.dart';
+export 'package:smartpay/models/general/userModel.dart';
+export 'package:smartpay/models/authentication/login.dart';
 // export 'package:pcash/models/authentication/registerRequest.dart';
 // export 'package:pcash/models/authentication/getAllSecurityQuestions.dart';
 // export 'package:pcash/models/authentication/setSecurityAnswer.dart';

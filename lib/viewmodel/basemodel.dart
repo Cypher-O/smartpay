@@ -3,7 +3,7 @@ import '../utilities/imports/generalImport.dart';
 class BaseModel extends BaseViewModel {
   final bool _onboardingComplete = false;
   bool get isOnboardingComplete => _onboardingComplete;
-    // entering pin in transaction pin confirmation pin page
+  // entering pin in transaction pin confirmation pin page
   String pinEntry = '';
   // transaction pin
   List<TextEditingController> pinControllers = [
@@ -22,7 +22,7 @@ class BaseModel extends BaseViewModel {
   int attempt = 1;
   int lastIndex = 0;
 
-   // for showing error text under text fields
+  // for showing error text under text fields
   showErrorText(
       {required String text,
       required bool errorBool,
@@ -46,9 +46,9 @@ class BaseModel extends BaseViewModel {
     } else {
       return S();
     }
-  } 
+  }
 
-    //remove whatever focus is in place
+  //remove whatever focus is in place
   void clearFocus(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
     // if (currentFocus.hasPrimaryFocus) {
@@ -58,7 +58,7 @@ class BaseModel extends BaseViewModel {
     notifyListeners();
   }
 
-    clearOtpField() {
+  clearOtpField() {
     lastIndex = 0;
     pinEntry = '';
     for (var i = 0; i < pinControllers.length; i++) {
@@ -66,6 +66,7 @@ class BaseModel extends BaseViewModel {
     }
     notifyListeners();
   }
+
   // back space count to count how many times back space is pressed
   int backSpaceCount = 0;
   // this happens when backspace is pressed
@@ -89,8 +90,8 @@ class BaseModel extends BaseViewModel {
   }
 
   //For displaying a success page
-  showSuccessScreen(BuildContext context, String image, String title, String subtitle,
-      String buttonText, Function? callback,
+  showSuccessScreen(BuildContext context, String image, String title,
+      String subtitle, String buttonText, Function? callback,
       {String? navigateTo}) {
     Navigator.push(
       context,
@@ -125,7 +126,7 @@ class BaseModel extends BaseViewModel {
     );
   }
 
-    //For displaying a partial-failure page
+  //For displaying a partial-failure page
   showHybridScreen(BuildContext context, String title, String subtitle,
       String buttonText, Function? callback,
       {String? navigateTo}) {
@@ -143,4 +144,19 @@ class BaseModel extends BaseViewModel {
     );
   }
 
+  String formatErrorMessage(message) {
+    if (message == null) {
+      return undefinedError;
+    } else {
+      if (message is String) {
+        return message;
+      } else {
+        List<String> errorMessages = [];
+        message.values.forEach((errorList) {
+          errorMessages.addAll(errorList.cast<String>());
+        });
+        return errorMessages[0];
+      }
+    }
+  }
 }

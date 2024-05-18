@@ -11,6 +11,7 @@ Future<bool> runFunctionForApi(
   try {
     // loading
     if (noLoading == false) {
+      // loadingDialog(context, text: "");
       loadingDialog(context, text: "");
     }
 

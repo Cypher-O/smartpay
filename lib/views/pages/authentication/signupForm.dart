@@ -7,12 +7,15 @@ class SignupForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<SignupFormViewModel>.reactive(
       viewModelBuilder: () => SignupFormViewModel(),
-      onViewModelReady: (model) async {},
+      onViewModelReady: (model) async {
+        model.getCountries(context);
+      },
       disposeViewModel: false,
       builder: (context, model, child) {
         return PopScope(
           canPop: false,
           child: BaseUi(
+            refreshedEnabled: false,
             children: [
               backButton(context, navigateTo: otpVerificationRoute),
               rowPositioned(
@@ -69,8 +72,10 @@ class SignupForm extends StatelessWidget {
                           S(h: 10),
                           model.showErrorText(
                               text: model.fullNameController.text.isEmpty
-                                  ? 'Value must not be empty '
-                                  : "",
+                                  ? 'Full name must not be empty '
+                                  : model.fullNameController.text.length < 5
+                                      ? "Full name must not be less than 5"
+                                      : "",
                               errorBool: model.fullNameError),
                           S(h: 10),
                           FormattedTextFields(
@@ -81,7 +86,7 @@ class SignupForm extends StatelessWidget {
                             autoFocus: false,
                             inputFormatters: const [],
                             onChangedFunction: () {
-                              model.onChangedFunctionEmail(context);
+                              model.onChangedFunctionUserName(context);
                             },
                             errorTextActive: model.userNameError,
                             focusNode: model.userNameFocusNode,
@@ -89,19 +94,24 @@ class SignupForm extends StatelessWidget {
                           S(h: 10),
                           model.showErrorText(
                               text: model.userNameController.text.isEmpty
-                                  ? 'Empty Field, enter email address'
-                                  : !isValidEmail(
-                                          model.userNameController.text.trim())
-                                      ? 'Invalid email, Please enter a valid email address'
+                                  ? 'Username must not be empty '
+                                  : model.userNameController.text.length < 5
+                                      ? "Username must not be less than 5"
                                       : "",
                               errorBool: model.userNameError),
                           S(h: 10),
-                          dropdownFieldWidget(
-                            context,
-                            items: ["test", "test", "test"],
-                            hintText: "Select Country",
-                            callback: (value) {},
+                          CountryPicker(
+                            onSelect: (Countries selectedCountry) {
+                              debugPrint(
+                                  'Selected Country: ${selectedCountry.countryName}');
+                            },
+                            countries: model.countriesList,
+                            // errorTextActive: model.selectedCountryError,
                           ),
+                          S(h: 8),
+                          // model.showErrorText(
+                          //     text: "Please select a country",
+                          //     errorBool: model.selectedCountryError),
                           S(h: 10),
                           FormattedTextFields(
                             keyInputType: TextInputType.text,
@@ -145,11 +155,61 @@ class SignupForm extends StatelessWidget {
                                       ? 'Invalid password, Length must be more than 7 and contains lower case, upper case , digit and  symbol'
                                       : "",
                               errorBool: model.passwordError),
+                          S(h: 10),
+                          FormattedTextFields(
+                            keyInputType: TextInputType.text,
+                            textFieldController:
+                                model.confirmPasswordController,
+                            textFieldHint: "Confirm Password",
+                            noBorder: true,
+                            autoFocus: false,
+                            obscureText: model.obscureText,
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                model.obscureTextFunction();
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GeneralIconDisplay(
+                                    model.obscureText
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    AppColors.grey(),
+                                    UniqueKey(),
+                                    20,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            inputFormatters: const [],
+                            onChangedFunction: () {
+                              model.onChangedFunctionConfirmPassword();
+                            },
+                            errorTextActive: model.confirmPasswordError,
+                            focusNode: model.confirmPasswordFocusNode,
+                          ),
+                          S(h: 12),
+                          model.showErrorText(
+                              lineLength: 2,
+                              text: model.confirmPasswordController.text.isEmpty
+                                  ? 'Empty Field, enter password!'
+                                  : !isValidPassword(model
+                                          .confirmPasswordController.text
+                                          .trim())
+                                      ? 'Invalid password, Length must be more than 7 and contains lower case, upper case , digit and  symbol'
+                                      : (model.passwordController.text.trim() !=
+                                              model.confirmPasswordController
+                                                  .text
+                                                  .trim())
+                                          ? "Passwords do not match"
+                                          : "",
+                              errorBool: model.passwordError),
                           S(h: 25),
                           ButtonWidget(
                             () {
-                              // model.login(context);
-                              context.goNamed(setPinCodeRoute);
+                              model.createAccount(context);
+                              // context.goNamed(setPinCodeRoute);
                             },
                             AppColors.blue(),
                             382,

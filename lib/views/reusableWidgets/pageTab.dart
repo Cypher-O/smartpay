@@ -2,9 +2,10 @@
 
 import '../../../utilities/imports/generalImport.dart';
 
-Widget pageTab(BuildContext context, {double? top, TabEnum? tabEnum,double? bottom}) {
-    // double platformBottom = tabEnum == TabEnum.savings && Platform.isIOS ? 20 : 0;
-    //  double platformBottom = kIsWeb ? 0 : (tabEnum == TabEnum.savings && Platform.isIOS ? 20 : 0);
+Widget pageTab(BuildContext context,
+    {double? top, TabEnum? tabEnum, double? bottom}) {
+  // double platformBottom = tabEnum == TabEnum.savings && Platform.isIOS ? 20 : 0;
+  //  double platformBottom = kIsWeb ? 0 : (tabEnum == TabEnum.savings && Platform.isIOS ? 20 : 0);
   return Positioned(
     child: Container(
       width: sS(context).w,
@@ -24,44 +25,6 @@ Widget pageTab(BuildContext context, {double? top, TabEnum? tabEnum,double? bott
                   : () {
                       context.goNamed(homeRoute);
                     }),
-          // savings page
-          tabWidget(context,
-              image: tabEnum == TabEnum.savings
-                  ? "savingsSelected"
-                  : "savingsUnselected",
-              isSelected: tabEnum == TabEnum.savings ? true : false,
-              left: 99,
-              label: "Savings",
-              navigation: tabEnum == TabEnum.savings
-                  ? () {}
-                  : () {
-                      // context.goNamed(savingsRoute);
-                    }),
-          // circle page
-          tabWidget(context,
-              image: tabEnum == TabEnum.credit
-                  ? "creditSelected"
-                  : "creditUnselected",
-              isSelected: tabEnum == TabEnum.credit ? true : false,
-              left: 172,
-              label: "Credit",
-              navigation: tabEnum == TabEnum.credit
-                  ? () {}
-                  : () {
-                      // context.goNamed(creditRoute);
-                    }),
-          // chat page
-          tabWidget(context,
-              image: tabEnum == TabEnum.vas ? "vas" : "vasUnselected",
-              isSelected: tabEnum == TabEnum.vas ? true : false,
-              right: 100,
-              label: "VAS",
-              navigation: tabEnum == TabEnum.vas
-                  ? () {}
-                  : () {
-                      // context.goNamed(vasRoute);
-                    }),
-
           // account page
           tabWidget(context,
               image: tabEnum == TabEnum.account
@@ -73,12 +36,12 @@ Widget pageTab(BuildContext context, {double? top, TabEnum? tabEnum,double? bott
               navigation: tabEnum == TabEnum.account
                   ? () {}
                   : () {
-                      // context.goNamed(accountRoute);
+                      context.goNamed(accountRoute);
                     }),
         ],
       ),
     ),
-    bottom: sS(context).cH(height:bottom?? 20),
+    bottom: sS(context).cH(height: bottom ?? 20),
     //  bottom: sS(context).cH(height: bottom ?? platformBottom),
   );
 }
@@ -105,7 +68,7 @@ Widget tabWidget(context,
         //label
         GeneralTextDisplay(
             label,
-            isSelected ? AppColors.green() : AppColors.gray3(),
+            isSelected ? AppColors.blue() : AppColors.gray3(),
             1,
             13,
             FontWeight.w500,
@@ -117,7 +80,7 @@ Widget tabWidget(context,
               width: sS(context).cW(width: 14.8),
               height: sS(context).cH(height: 2),
               decoration: BoxDecoration(
-                  color: AppColors.green(),
+                  color: AppColors.blue(),
                   borderRadius: BorderRadius.circular(4)))
       ],
     ),

@@ -8,11 +8,11 @@ ScreenSize sS(
 ) =>
     ScreenSize(context: context);
 
+DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
 //constant strings
 const String onboardedKey = 'onboarded';
 const String introCompletedKey = 'introCompleted';
-
-
 
 // error string
 const String error = "An error occured";
@@ -49,7 +49,6 @@ final Map<int, Color> primarySwatchColor = {
   900: Colors.green.withOpacity(1.0),
 };
 
-
 // constant sizes
 const double hPadding = 16;
 
@@ -62,3 +61,5 @@ const String systemThemeString = 'System default';
 const String isDarkModeString = 'isDarkMode'; //for dark mode bool
 const String currentThemeString =
     'currentTheme'; //for getting the current settings
+
+// String selectedCountry = '  Select Country';

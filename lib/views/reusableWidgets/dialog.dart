@@ -31,6 +31,122 @@ Widget customDialog(child,
   );
 }
 
+class CustomHexagonDialog extends StatelessWidget {
+  final Widget child;
+  final Alignment? align;
+  final double? x;
+  final double? y;
+  final Color? color;
+  final double? width;
+  final double? height;
+
+  const CustomHexagonDialog({
+    Key? key,
+    required this.child,
+    this.align,
+    this.x,
+    this.y,
+    this.color,
+    this.width,
+    this.height,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      canPop: false,
+      child: Align(
+        alignment: align ?? Alignment(x ?? 0.0, y ?? 0.0),
+        child: SizedBox(
+          width: width ?? 300,
+          height: height ?? 300,
+          child: Transform.rotate(
+            angle: pi / 2,
+            child: Material(
+              color: color ?? Colors.white,
+              shape: HexagonBorder(),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                child: child,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class HexagonBorder extends ShapeBorder {
+  @override
+  EdgeInsetsGeometry get dimensions => EdgeInsets.zero;
+
+  @override
+  Path getInnerPath(Rect rect, {TextDirection? textDirection}) {
+    return getOuterPath(rect, textDirection: textDirection);
+  }
+
+  @override
+  Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
+    double width = rect.width;
+    double height = rect.height;
+
+    double centerX = width / 2;
+    double centerY = height / 2;
+
+    double radius = min(width / 2, height / 2);
+
+    final Path path = Path();
+    path.moveTo(centerX + radius * cos(0), centerY + radius * sin(0));
+    for (double i = 1; i <= 6; i++) {
+      path.lineTo(centerX + radius * cos(2 * pi * i / 6),
+          centerY + radius * sin(2 * pi * i / 6));
+    }
+    path.close();
+
+    return path;
+  }
+
+  @override
+  void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {}
+
+  @override
+  ShapeBorder scale(double t) {
+    return this;
+  }
+}
+
+loadingDialog(BuildContext context,
+    {required String text,
+    Color? color,
+    Function? onWillPop,
+    int? height,
+    int? width}) async {
+  return SchedulerBinding.instance.addPostFrameCallback(
+    (_) => showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => ViewModelBuilder.reactive(
+        viewModelBuilder: () => BaseModel(),
+        onViewModelReady: (model) async {},
+        disposeViewModel: false,
+        builder: (context, model, child) => PopScope(
+          canPop: false,
+          child: Center(
+            child: CustomHexagonDialog(
+              child: AnimatedHourglass(),
+              height: 70,
+              width: 70,
+              color: color ?? AppColors.white(),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 loadingNoScheduleDialog(BuildContext context,
     {required String text, Color? color, required Function? onWillPop}) async {
   return showDialog(
@@ -54,41 +170,6 @@ loadingNoScheduleDialog(BuildContext context,
               ),
             ),
           ));
-}
-
-// loading dialog
-loadingDialog(BuildContext context,
-    {required String text,
-    Color? color,
-    Function? onWillPop,
-    int? height,
-    int? width}) async {
-  return SchedulerBinding.instance.addPostFrameCallback(
-    (_) => showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => ViewModelBuilder<BaseModel>.reactive(
-              viewModelBuilder: () => BaseModel(),
-              onViewModelReady: (model) async {},
-              disposeViewModel: false,
-              builder: (context, model, child) => WillPopScope(
-                onWillPop: () async {
-                  if (onWillPop == null) {
-                    return false;
-                  } else {
-                    return onWillPop();
-                  }
-                },
-                child: Center(
-                  child: customDialog(Center(child: loading()),
-                      align: Alignment.center,
-                      height: 150,
-                      width: 150,
-                      color: color ?? AppColors.white()),
-                ),
-              ),
-            )),
-  );
 }
 
 // dialog with close
@@ -429,9 +510,7 @@ loaderWithCompulsoryDownload(
                   textAlign: TextAlign.center,
                 ),
                 S(h: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, 
-                children: [
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Expanded(
                     child: ButtonWidget(
                       () {

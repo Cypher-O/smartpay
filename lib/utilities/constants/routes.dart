@@ -12,3 +12,4 @@ const String setPinCodeRoute = 'setPinCode';
 
 //mainApp routes
 const String homeRoute = 'home';
+const String accountRoute = 'account';

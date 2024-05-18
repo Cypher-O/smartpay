@@ -14,7 +14,9 @@ class OtpVerification extends StatelessWidget {
     return ViewModelBuilder<OtpLoginViewModel>.reactive(
       viewModelBuilder: () => OtpLoginViewModel(),
       // OtpLoginViewModel(emailController: emailController),
-      onViewModelReady: (model) async {},
+      onViewModelReady: (model) async {
+        maskedEmail = model.maskEmail(newUserEmailBucket!);
+      },
       disposeViewModel: false,
       builder: (context, model, child) => BaseUi(
         children: [
@@ -37,7 +39,7 @@ class OtpVerification extends StatelessWidget {
             child: Container(
               width: sS(context).w - 30,
               child: GeneralTextDisplay(
-                "We sent a code to (*****@gmail.com). Enter it here to verify your identity",
+                "We sent a code to $maskedEmail. Enter it here to verify your identity",
                 AppColors.gray3(),
                 2,
                 15,
@@ -85,12 +87,10 @@ class OtpVerification extends StatelessWidget {
                   S(h: 80),
                   ButtonWidget(
                     () {
-                      // if (model.emailFunctionSatisfied) {
-                      context.goNamed(signupFormRoute);
-                      // }
+                      // context.goNamed(signupFormRoute);
+                      model.verifyEmailOtp(context);
                     },
-                    blueDark,
-                    // AppColors.blue(),
+                    model.areAllBoxesFilled() ? blueDark : disabledButton,
                     382,
                     60,
                     Text(

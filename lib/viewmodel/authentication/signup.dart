@@ -79,6 +79,28 @@ class SignupViewModel extends BaseModel {
     }
   }
 
+  // void saveDetailsToBucket(BuildContext context) async {
+  //   newUserFirstNameBucket = emailController.text;
+  // }
+
+  sendEmailOtp(BuildContext context, {bool noLoading = false}) async {
+    newUserEmailBucket = emailController.text.trim();
+    runFunctionForApi(
+      context,
+      noLoading: noLoading,
+      functionToRunAfterService: (value) async {
+        if (value is EmailOtp) {
+          context.goNamed(otpVerificationRoute);
+          debugPrint("EMAIL: $newUserEmailBucket");
+          debugPrint("EMAIL OTP SENT SUCCESSFULLY");
+          notifyListeners();
+        }
+      },
+      functionToRunService:
+          sendEmailOtpService(emailAddress: newUserEmailBucket!),
+    );
+  }
+
   // login(BuildContext context) async {
   //   clearFocus(context);
   //   bool validated = await _validateForm();

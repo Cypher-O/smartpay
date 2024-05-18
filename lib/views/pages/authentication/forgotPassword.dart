@@ -30,18 +30,18 @@ class ForgotPassword extends StatelessWidget {
                   ),
                   padding: EdgeInsets.all(10.0),
                   child: Image.asset(
-                    "icons/password_recovery.png",
+                    "assets/icons/password_recovery.png",
                     height: 40.0,
                     width: 40.0,
                   ),
                 ),
                 Positioned(
                   top: 0.0,
-                  left: 55.0,
+                  left: 57.0,
                   child: Image.asset(
-                    "icons/password_recovery_highlight.png",
-                    height: 20.0,
-                    width: 20.0,
+                    "assets/icons/password_recovery_highlight.png",
+                    height: 17.0,
+                    width: 17.0,
                   ),
                 ),
               ],

@@ -1,4 +1,9 @@
 // //General services
+export '../../services/authentication/getCountries.dart';
+export '../../services/authentication/sendEmailOtp.dart';
+export '../../services/authentication/verifyEmailOtp.dart';
+export '../../services/authentication/createAccount.dart';
+export '../../services/authentication/userLogin.dart';
 // export '../../services/general/biometrics.dart';
 // export '../../services/general/setTransactionPin.dart';
 // export '../../services/notification/notificationSocket.dart';

@@ -257,7 +257,7 @@ class PageWidget extends StatelessWidget {
                     color: alterWhite,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -278,8 +278,8 @@ class PageWidget extends StatelessWidget {
                           GeneralTextDisplay(
                             'Suggested split',
                             AppColors.black(),
-                            2,
-                            12,
+                            1,
+                            9,
                             FontWeight.w400,
                             "",
                             textAlign: TextAlign.center,
@@ -287,13 +287,13 @@ class PageWidget extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        width: 30,
+                        width: 20,
                       ),
                       Text(
                         'Today',
                         style: TextStyle(
                           color: Colors.blue,
-                          fontSize: 12,
+                          fontSize: 9,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -303,8 +303,8 @@ class PageWidget extends StatelessWidget {
               ),
               // Right container
               Positioned(
-                top: 140,
-                right: 60,
+                top: 120,
+                right: 30,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -314,41 +314,10 @@ class PageWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Direct Deposit',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          GeneralTextDisplay(
-                            'Suggested split',
-                            AppColors.black(),
-                            2,
-                            12,
-                            FontWeight.w400,
-                            "",
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Text(
-                        'Today',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Image.asset(
+                        "assets/images/bar_chart.png",
+                        width: 120,
+                        height: 120,
                       ),
                     ],
                   ),
@@ -360,16 +329,6 @@ class PageWidget extends StatelessWidget {
                 left: 20,
                 right: 20,
                 child: Container(
-                  // decoration: BoxDecoration(
-                  // gradient: LinearGradient(
-                  //   begin: Alignment.topCenter,
-                  //   end: Alignment.bottomCenter,
-                  //   colors: [
-                  //     Colors.white.withOpacity(0.98),
-                  //     Colors.white,
-                  //   ],
-                  // ),
-                  // ),
                   color: AppColors.white(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
