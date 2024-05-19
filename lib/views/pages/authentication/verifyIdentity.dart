@@ -53,21 +53,6 @@ class VerifyIdentity extends StatelessWidget {
             child: GeneralTextDisplay("Verify your identity", AppColors.black(),
                 1, 20, FontWeight.w700, ""),
           ),
-          // rowPositioned(
-          //   top: 260,
-          //   left: 16,
-          //   child: Container(
-          //     width: sS(context).w - 30,
-          //     child: GeneralTextDisplay(
-          //         "Where would you like Smartpay to send your security code",
-          //         AppColors.gray3(),
-          //         2,
-          //         15,
-          //         FontWeight.w400,
-          //         ""),
-          //   ),
-          // ),
-
           rowPositioned(
             top: 280,
             left: 16,
@@ -174,21 +159,6 @@ class VerifyIdentity extends StatelessWidget {
               noElevation: 0,
             ),
           ),
-          // Container(
-          //   width: sS(context).w - 30,
-          //   height: sS(context).h - 600,
-          //   child: buttonNoPositioned(
-          //     context,
-          //     text: 'Send me email',
-          //     radius: 16.0,
-          //     height: 60,
-          //     buttonColor: AppColors.blue(),
-          //     navigator: () {
-          //       context.goNamed(verifyIdentityRoute);
-          //       // model.getSecurityQuestion(context);
-          //     },
-          //   ),
-          // ),
         ],
       ),
     );

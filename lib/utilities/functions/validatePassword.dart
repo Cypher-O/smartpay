@@ -9,9 +9,13 @@
 // (?=.*?[0-9]) ensures that there is at least one numeric character.
 // (?=.*?[!@#\$&*~]) ensures that there is at least one special character from the set !@#$&*~.
 // .{8,} specifies that the password must be at least 8 characters long.
+
 bool isValidPassword(String value) {
-  // Allow alphanumeric characters only
-  String pattern = r'^(?=.*?[A-Za-z0-9]).{8,}$';
+  // Ensure the password contains at least one uppercase letter,
+  // one lowercase letter, one digit, and one special character,
+  // and has a minimum length of 8 characters.
+  String pattern =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+}{:;<>,.?/]).{8,}$';
   RegExp regExp = RegExp(pattern);
   return regExp.hasMatch(value);
 }

@@ -73,7 +73,8 @@ class SignupForm extends StatelessWidget {
                           model.showErrorText(
                               text: model.fullNameController.text.isEmpty
                                   ? 'Full name must not be empty '
-                                  : model.fullNameController.text.length < 5
+                                  : isValidFullName(
+                                          model.fullNameController.text.trim())
                                       ? "Full name must not be less than 5"
                                       : "",
                               errorBool: model.fullNameError),
@@ -102,8 +103,7 @@ class SignupForm extends StatelessWidget {
                           S(h: 10),
                           CountryPicker(
                             onSelect: (Countries selectedCountry) {
-                              debugPrint(
-                                  'Selected Country: ${selectedCountry.countryName}');
+                             
                             },
                             countries: model.countriesList,
                             // errorTextActive: model.selectedCountryError,
@@ -119,16 +119,17 @@ class SignupForm extends StatelessWidget {
                             textFieldHint: "Password",
                             noBorder: true,
                             autoFocus: false,
-                            obscureText: model.obscureText,
+                            obscureText: model.showPassword,
                             suffixIcon: GestureDetector(
                               onTap: () {
-                                model.obscureTextFunction();
+                                model.showTextFunction(
+                                    value: ObscureTextEnum.password);
                               },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   GeneralIconDisplay(
-                                    model.obscureText
+                                    model.showPassword
                                         ? Icons.visibility_off
                                         : Icons.visibility,
                                     AppColors.grey(),
@@ -163,16 +164,17 @@ class SignupForm extends StatelessWidget {
                             textFieldHint: "Confirm Password",
                             noBorder: true,
                             autoFocus: false,
-                            obscureText: model.obscureText,
+                            obscureText: model.showConfirmPassword,
                             suffixIcon: GestureDetector(
                               onTap: () {
-                                model.obscureTextFunction();
+                                model.showTextFunction(
+                                    value: ObscureTextEnum.confirmPassword);
                               },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   GeneralIconDisplay(
-                                    model.obscureText
+                                    model.showConfirmPassword
                                         ? Icons.visibility_off
                                         : Icons.visibility,
                                     AppColors.grey(),
@@ -204,7 +206,7 @@ class SignupForm extends StatelessWidget {
                                                   .trim())
                                           ? "Passwords do not match"
                                           : "",
-                              errorBool: model.passwordError),
+                              errorBool: model.confirmPasswordError),
                           S(h: 25),
                           ButtonWidget(
                             () {

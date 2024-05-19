@@ -61,7 +61,7 @@ class OtpInputBox extends StatelessWidget {
       child: TextFormField(
         controller: viewModel.otpControllers[index],
         focusNode: viewModel.otpFocusNodes[index],
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.none,
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
         maxLength: 1,

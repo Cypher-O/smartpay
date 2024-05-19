@@ -29,8 +29,7 @@ Future<bool> runFunctionForApi(
       // The API call took longer than 1 minute, handle accordingly
       if (!noLoading) Navigator.pop(context);
       // Show an appropriate message to the user
-      // loaderWithClose(context, text: "API call timed out");
-      loaderWithClose(context, text: "Network busy. Retry", removePage: false);
+      errorDialogWithClose(context, text: "Network busy. Retry", removePage: false);
 
       return false;
     } else {
@@ -40,7 +39,7 @@ Future<bool> runFunctionForApi(
         functionToRunAfterService(result);
       } catch (onError) {
         if (onError is SocketException && noLoading == false) {
-          loaderWithClose(context, text: networkError);
+          errorDialogWithClose(context, text: networkError);
           if (noLoading == false) Navigator.pop(context);
         } else if (onError is FormatException && noLoading == false) {
           Navigator.pop(context);
@@ -51,7 +50,7 @@ Future<bool> runFunctionForApi(
           if (noLoading == false) {
             Navigator.pop(context);
             debugPrint('error is $onError}');
-            loaderWithClose(context, text: undefinedError);
+            errorDialogWithClose(context, text: undefinedError);
           }
         }
       }
@@ -62,7 +61,7 @@ Future<bool> runFunctionForApi(
 
     if (onError is SocketException && noLoading == false) {
       if (noLoading == false) Navigator.pop(context);
-      loaderWithClose(context, text: networkError);
+      errorDialogWithClose(context, text: networkError);
     } else if (onError is FormatException && noLoading == false) {
       Navigator.pop(context);
       // this will occur if the user is unauthenticated, if not you can check the stack trace error printed
@@ -70,26 +69,9 @@ Future<bool> runFunctionForApi(
     } else {
       if (noLoading == false) {
         Navigator.pop(context);
-        loaderWithClose(context, text: undefinedError);
+        errorDialogWithClose(context, text: undefinedError);
       }
     }
     return false;
   }
 }
-
-// void showLogoutModal(BuildContext context) {
-//   final model = BaseModel();
-//   loaderWithInfo(context,
-//       text: 'Kindly Login in Again',
-//       title: "Session Expired",
-//       // title: "Unauthenticated",
-//       iconColor: AppColors.red(),
-//       onTap: () {
-//         model.logoutFunction(navigateTo: loginRoute);
-//       },
-//       cancelText: 'Cancel',
-//       acceptText: 'Login',
-//       cancelTap: () {
-//         model.logoutFunction();
-//       });
-// }

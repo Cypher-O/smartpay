@@ -8,32 +8,79 @@ class OtpLoginViewModel extends BaseModel {
   String? emailController;
   bool showOtpError = false;
   List<String> enteredOtp = List<String>.filled(5, '');
+  bool isCountdownActive = false;
 
-  // OtpLoginViewModel({required this.emailController});
+  // Remaining time in seconds for the countdown
+  int countdownDuration = 60;
+
+  // Timer for the countdown
+  late Timer countdownTimer;
+  void startCountdown(int duration) {
+    countdownDuration = duration;
+    isCountdownActive = true;
+
+    countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (countdownDuration > 0) {
+        countdownDuration--;
+        notifyListeners();
+      } else {
+        countdownTimer.cancel();
+        isCountdownActive = false;
+        notifyListeners();
+      }
+    });
+  }
+
+  String get countdownDisplay {
+    int minutes = countdownDuration ~/ 60;
+    int seconds = countdownDuration % 60;
+    String minutesDisplay = minutes.toString().padLeft(2, '0');
+    String secondsDisplay = seconds.toString().padLeft(2, '0');
+    return '$minutesDisplay:$secondsDisplay';
+  }
+
+  sendEmailOtp(BuildContext context, {bool noLoading = false}) async {
+    if (isCountdownActive) notifyListeners();
+    runFunctionForApi(
+      context,
+      noLoading: noLoading,
+      functionToRunAfterService: (value) async {
+        if (value is EmailOtp) {
+          notifyListeners();
+        } else {
+          errorDialogWithClose(context, text: sendOtpErrorMessage!);
+        }
+      },
+      functionToRunService:
+          sendEmailOtpService(emailAddress: newUserEmailBucket!),
+    );
+  }
 
   void updateOtpInput(BuildContext context, String value) {
-    // Find the index of the OTP input field that has focus
     final focusedIndex = otpFocusNodes.indexWhere((node) => node.hasFocus);
+    final isFirstIndex = focusedIndex == 0;
 
-    // If an OTP input field has focus and its index is valid
     if (focusedIndex >= 0 && focusedIndex < otpControllers.length) {
-      // Set the text of the corresponding OTP input field to the pressed value
-      otpControllers[focusedIndex].text = value;
+      if (value == 'delete') {
+        otpControllers[focusedIndex].text = '';
+        enteredOtp[focusedIndex] = '';
 
-      // Update enteredOtp list with the entered value
-      enteredOtp[focusedIndex] = value;
-
-      // Move focus to the next OTP input field
-      if (focusedIndex < otpControllers.length - 1) {
-        FocusScope.of(context).requestFocus(otpFocusNodes[focusedIndex + 1]);
+        if (!isFirstIndex) {
+          FocusScope.of(context).requestFocus(otpFocusNodes[focusedIndex - 1]);
+        }
       } else {
-        // If this is the last OTP input field, check if all boxes are filled
-        // if (enteredOtp.every((otp) => otp.isNotEmpty)) {
-        //   // If all boxes are filled, proceed with confirmation
-        //   context.goNamed(signupFormRoute);
-        // }
+        otpControllers[focusedIndex].text = value;
+        enteredOtp[focusedIndex] = value;
+
+        if (focusedIndex < otpControllers.length - 1) {
+          FocusScope.of(context).requestFocus(otpFocusNodes[focusedIndex + 1]);
+        }
       }
     }
+
+    // Check if all OTP input boxes are filled and update the button state
+    final areAllBoxesFilled = enteredOtp.every((otp) => otp.isNotEmpty);
+    setOtpError(!areAllBoxesFilled);
   }
 
   // Method to check if all OTP input boxes are filled
@@ -42,9 +89,6 @@ class OtpLoginViewModel extends BaseModel {
   }
 
   verifyEmailOtp(BuildContext context, {bool noLoading = false}) async {
-    //   for (TextEditingController? controller in otpControllers) {
-    //   newUserEmailOtpBucket += controller!.text.trim();
-
     // Concatenate OTP from controllers into a single string
     String otp = '';
     for (TextEditingController? controller in otpControllers) {
@@ -56,25 +100,22 @@ class OtpLoginViewModel extends BaseModel {
 
     // Assign concatenated OTP to newUserEmailOtpBucket
     newUserEmailOtpBucket = otp;
-    // }
+
     runFunctionForApi(
       context,
       noLoading: noLoading,
       functionToRunAfterService: (value) async {
         if (value is VerifyEmailOtp && value.status) {
-          debugPrint("otpptoiooir $newUserEmailOtpBucket");
-
           context.goNamed(signupFormRoute);
-          debugPrint("OTP: $newUserEmailOtpBucket");
-          debugPrint("EMAIL OTP VERIFIED SUCCESSFULLY");
           notifyListeners();
+        } else {
+          errorDialogWithClose(context, text: verifyOtpErrorMessage!);
         }
       },
       functionToRunService: verifyEmailOtpService(
           emailAddress: newUserEmailBucket!, token: newUserEmailOtpBucket!),
     );
   }
-
 
   String maskEmail(String email) {
     final emailParts = email.split('@');
@@ -85,27 +126,10 @@ class OtpLoginViewModel extends BaseModel {
     final domain = emailParts[1];
     return '*****@$domain';
   }
-  
-// Method to update the OTP input field with the pressed value
-  // void updateOtpInput(BuildContext context, String value) {
-  //   // Find the index of the OTP input field that has focus
-  //   final focusedIndex = otpFocusNodes.indexWhere((node) => node.hasFocus);
-
-  //   // If an OTP input field has focus and its index is valid
-  //   if (focusedIndex >= 0 && focusedIndex < otpControllers.length) {
-  //     // Set the text of the corresponding OTP input field to the pressed value
-  //     otpControllers[focusedIndex].text = value;
-
-  //     // Move focus to the next OTP input field
-  //     if (focusedIndex < otpControllers.length - 1) {
-  //       FocusScope.of(context).requestFocus(otpFocusNodes[focusedIndex + 1]);
-  //     }
-  //   }
-  // }
 
   // Method to set the showOtpError property
   void setOtpError(bool value) {
     showOtpError = value;
-    notifyListeners(); // Make sure to call notifyListeners to trigger a rebuild
+    notifyListeners();
   }
 }

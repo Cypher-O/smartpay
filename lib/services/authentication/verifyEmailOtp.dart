@@ -1,6 +1,7 @@
 import 'package:smartpay/utilities/imports/generalImport.dart';
 
-verifyEmailOtpService({required String emailAddress, required String token}) async {
+verifyEmailOtpService(
+    {required String emailAddress, required String token}) async {
   Map<String, String> requestHeaders = {
     "Accept": "application/json",
     "Content-Type": "application/json",
@@ -17,15 +18,14 @@ verifyEmailOtpService({required String emailAddress, required String token}) asy
       body: json.encode(data),
     );
 
-    debugPrint("REQUEST URL IS $verifyEmailOtpUrl, RESPONSE IS ${response.body}");
-
-    // final Map<String, dynamic> decodedResponse = json.decode(response.body);
-
     if (response.statusCode == 200 || response.statusCode == 201) {
       final Map<String, dynamic> decodedResponse = json.decode(response.body);
       return VerifyEmailOtp.fromJson(decodedResponse);
+    } else if (response.statusCode == 422) {
+      final Map<String, dynamic> decodedResponse = json.decode(response.body);
+      verifyOtpErrorMessage = ApiErrorHandler.getErrorMessage(decodedResponse);
+      return verifyOtpErrorMessage;
     } else {
-      debugPrint("Error verifying email OTP: $e");
       return null;
     }
   } catch (e) {

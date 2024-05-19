@@ -2,13 +2,14 @@ import 'package:smartpay/utilities/imports/generalImport.dart';
 
 class CustomKeyboard extends StatelessWidget {
   final Function(String) onKeyPressed;
+   final Function() onDeletePressed;
 
-  CustomKeyboard({required this.onKeyPressed});
+  CustomKeyboard({required this.onKeyPressed, required this.onDeletePressed});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(9.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         // crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,7 +43,7 @@ class CustomKeyboard extends StatelessWidget {
             children: [
               _buildKey('*'),
               _buildKey('0'),
-              _buildEraseButton(),
+              _buildDeleteButton(),
             ],
           ),
         ],
@@ -75,28 +76,46 @@ class CustomKeyboard extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildEraseButton() {
+    Widget _buildDeleteButton() {
     return InkWell(
-      onTap: () => onKeyPressed('x'), 
+      onTap: onDeletePressed,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 0.0),
         child: Container(
           width: 40,
           height: 40,
           alignment: Alignment.center,
-          // decoration: BoxDecoration(
-          //   border: Border.all(color: Colors.grey),
-          //   borderRadius: BorderRadius.circular(10),
-          // ),
-          child: GeneralIconDisplay(
+          child: Icon(
             Icons.backspace_outlined,
-            AppColors.gray1(),
-            UniqueKey(),
-            22,
+            size: 22,
           ),
         ),
       ),
     );
   }
 }
+
+//   Widget _buildEraseButton() {
+//     return InkWell(
+//       onTap: () => onKeyPressed('x'),
+//       child: Padding(
+//         padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 0.0),
+//         child: Container(
+//           width: 40,
+//           height: 40,
+//           alignment: Alignment.center,
+//           // decoration: BoxDecoration(
+//           //   border: Border.all(color: Colors.grey),
+//           //   borderRadius: BorderRadius.circular(10),
+//           // ),
+//           child: GeneralIconDisplay(
+//             Icons.backspace_outlined,
+//             AppColors.gray1(),
+//             UniqueKey(),
+//             22,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

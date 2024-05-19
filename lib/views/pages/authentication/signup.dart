@@ -83,7 +83,7 @@ class SignupScreen extends StatelessWidget {
                           ButtonWidget(
                             () {
                               if (model.emailFunctionSatisfied) {
-                                model.sendEmailOtp(context);
+                                model.validateAndNavigate(context);
                               }
                             },
                             model.emailFunctionSatisfied

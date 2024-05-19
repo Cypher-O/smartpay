@@ -1,7 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
+
 import 'utilities/imports/generalImport.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   FlutterNativeSplash.remove();
   runApp(const MyApp());
 }

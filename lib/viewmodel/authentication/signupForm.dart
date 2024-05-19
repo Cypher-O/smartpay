@@ -7,6 +7,8 @@ class SignupFormViewModel extends BaseModel {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   bool _obscureText = true;
   String incorrectPasswordString = "Password is incorrect";
   int incorrectPasswordCount = 1;
@@ -21,6 +23,19 @@ class SignupFormViewModel extends BaseModel {
   void obscureTextFunction() {
     _obscureText = !_obscureText;
     notifyListeners();
+  }
+
+  bool showPassword = true;
+  bool showConfirmPassword = true;
+
+  showTextFunction({required ObscureTextEnum value}) {
+    if (value == ObscureTextEnum.password) {
+      showPassword = !showPassword;
+      notifyListeners();
+    } else if (value == ObscureTextEnum.confirmPassword) {
+      showConfirmPassword = !showConfirmPassword;
+      notifyListeners();
+    }
   }
 
   // String? selectedCountry;
@@ -102,35 +117,10 @@ class SignupFormViewModel extends BaseModel {
     notifyListeners();
   }
 
-  // onChangedFunctionConfirmPassword() {
-  //   confirmPasswordFocusNode.addListener(() {
-  //     if (confirmPasswordFocusNode.hasFocus == false) {
-  //       confirmPasswordError = false;
-  //       notifyListeners();
-  //     }
-  //   });
-  //   if (isValidPassword(confirmPasswordController.text.trim()) ||
-  //       passwordController.text.trim() !=
-  //           confirmPasswordController.text.trim()) {
-  //     confirmPasswordError = false;
-  //     notifyListeners();
-  //   } else {
-  //     confirmPasswordError = true;
-  //     notifyListeners();
-  //   }
-  // }
-
   getCountries(BuildContext context, {bool noLoading = false}) {
     runFunctionForApi(context, noLoading: noLoading,
         functionToRunAfterService: (value) async {
       countriesList = value;
-      // Print the items here
-      for (var country in countriesList) {
-        debugPrint('Country: ${country.countryName}');
-        debugPrint('Country Code: ${country.countryCode}');
-        debugPrint('Flag URL: ${country.flagUrl}');
-        debugPrint('----------------------------------------');
-      }
       notifyListeners();
     }, functionToRunService: getCountriesService());
   }
@@ -163,109 +153,54 @@ class SignupFormViewModel extends BaseModel {
       confirmPasswordFocusNode.requestFocus();
       return false;
     }
-    // else {
     return true;
-    // }
   }
 
   createAccount(BuildContext context) async {
     String? deviceName;
-    if (kIsWeb) {
-      // Some web specific code there
-      deviceName = 'web';
+    String os;
+    if (Platform.isAndroid) {
+      os = 'Android';
+    } else if (Platform.isIOS) {
+      os = 'iOS';
     } else {
-      if (defaultTargetPlatform == TargetPlatform.android) {
-        // Android-specific code
-        AndroidDeviceInfo? androidInfo = await deviceInfo.androidInfo;
-        if (androidInfo != null) {
-          deviceName = androidInfo.device;
-          notifyListeners();
-          if (kDebugMode) {
-            debugPrint('Running on ${androidInfo.device}');
-          }
-        } else {
-          // Handle the case when Android device information is null
-          deviceName = 'Unknown Android device';
-          // Optionally, you may want to log or print an error message
-          print('Error: Android Device Info is null');
-        }
-      } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        deviceName = iosInfo.name;
-        if (kDebugMode) {
-          debugPrint('Running on ${iosInfo.name}');
-        } // iOS-specific code
-      } else {
-        // Handle the case when none of the specified platforms is detected
-        deviceName = 'Unknown platform';
-      }
+      os = 'Other';
     }
+
     bool validated = await _validateForm();
-    // debugPrint("Tap on the button");
-
     if (validated) {
-      // debugPrint("Tap on the button");
-      // newUserFullNameBucket = fullNameController.text.trim();
-      // newUserUserNameBucket = userNameController.text.trim();
-      // newUserCountryBucket = selectedCountry!.toUpperCase();
-      // debugPrint(
-      //     "$newUserFullNameBucket}, ${newUserUserNameBucket} ${newUserCountryBucket}");
-
       runFunctionForApi(context, functionToRunAfterService: (value) async {
-        debugPrint("Tap on the button");
-        // newUserFullNameBucket = fullNameController.text.trim();
-        // newUserUserNameBucket = userNameController.text.trim();
-        // newUserCountryBucket = selectedCountryString ?? "Unknown";
-        debugPrint(
-            "${newUserFullNameBucket}, ${newUserUserNameBucket}, ${selectedCountryString}, ${passwordController.text.trim()}, ${newUserEmailBucket}, ${deviceName}");
-
         if (value is UserModel) {
           if (value.status == true) {
-            debugPrint('USER REGISTERED SUCCESSFULLY');
             userBucket = value;
+            newUserUserNameBucket = value.data?.user?.username;
+            newUserFullNameBucket = value.data?.user?.fullName;
+            newUserCountryBucket = value.data?.user?.country;
+            newUserEmailBucket = value.data?.user?.email;
+            newUserDevice = value.data?.user?.deviceName;
+
+            userTokenBucket = value.data?.token;
+
             notifyListeners();
 
             context.goNamed(homeRoute);
           } else {
-            loaderWithClose(context,
-                text: formatErrorMessage(value.message), removePage: false);
+            errorDialogWithClose(context,
+                text: registerErrorMessage!, icon: Icons.error_outline_sharp);
           }
+        } else {
+          errorDialogWithClose(context,
+              text: registerErrorMessage!, icon: Icons.error_outline_sharp);
         }
-
-        // else if (value is Map<String, dynamic>) {
-        //   loaderWithClose(context,
-        //       text: formatErrorMessage(value['message']), removePage: false);
-        // } else {
-        //   loaderWithClose(context,
-        //       text: "An unknown error occurred.", removePage: false);
-        // }
       },
           functionToRunService: createAccountService(
-            // fullName: newUserFullNameBucket!,
             fullName: fullNameController.text.trim(),
             userName: userNameController.text.trim(),
             emailAddress: newUserEmailBucket!,
             country: selectedCountryString!,
             password: passwordController.text.trim(),
-            deviceName: deviceName!,
+            deviceName: os,
           ));
     }
   }
-
-  // change password function
-  // onChangedFunctionPassword() {
-  //   passwordFocusNode.addListener(() {
-  //     if (passwordFocusNode.hasFocus == false) {
-  //       passwordError = false;
-  //       notifyListeners();
-  //     }
-  //   });
-  //   if (isValidPassword(passwordController.text.trim())) {
-  //     passwordError = false;
-  //     notifyListeners();
-  //   } else {
-  //     passwordError = true;
-  //     notifyListeners();
-  //   }
-  // }
 }

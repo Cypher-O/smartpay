@@ -1,7 +1,7 @@
 // enums acting like state
 
 // page tab enum
-enum TabEnum { home, savings, credit, vas, account }
+enum TabEnum { home, account }
 
 enum ObscureTextEnum { confirmPassword, password }
 

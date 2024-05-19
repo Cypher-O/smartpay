@@ -16,15 +16,14 @@ sendEmailOtpService({required String emailAddress}) async {
       body: json.encode(data),
     );
 
-    debugPrint("RESPONSE IS ${response.body}");
-
-    // final Map<String, dynamic> decodedResponse = json.decode(response.body);
-
     if (response.statusCode == 200 || response.statusCode == 201) {
       final Map<String, dynamic> decodedResponse = json.decode(response.body);
       return EmailOtp.fromJson(decodedResponse);
+    } else if (response.statusCode == 422) {
+      final Map<String, dynamic> decodedResponse = json.decode(response.body);
+      sendOtpErrorMessage = ApiErrorHandler.getErrorMessage(decodedResponse);
+      return sendOtpErrorMessage;
     } else {
-      debugPrint("Error sending email OTP: $e");
       return null;
     }
   } catch (e) {

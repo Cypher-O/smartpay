@@ -12,4 +12,7 @@ const String sendEmailOtpUrl = baseUrl + "auth/email";
 const String verifyEmailOtpUrl = baseUrl + "auth/email/verify";
 const String registerUrl = baseUrl + "auth/register";
 const String loginUrl = baseUrl + "auth/login";
+const String logoutUrl = baseUrl + "auth/logout";
 
+//home or dashboard urls
+const String secretQuoteUrl = baseUrl + "dashboard";

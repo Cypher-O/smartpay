@@ -1,4 +1,3 @@
-import 'package:smartpay/models/authentication/login.dart';
 import 'package:smartpay/utilities/imports/generalImport.dart';
 
 class LoginViewModel extends BaseModel {
@@ -76,59 +75,42 @@ class LoginViewModel extends BaseModel {
   }
 
   login(BuildContext context) async {
-    clearFocus(context);
-    String? deviceName;
-    if (kIsWeb) {
-      // Some web specific code there
-      deviceName = 'web';
+    String os;
+    if (Platform.isAndroid) {
+      os = 'Android';
+    } else if (Platform.isIOS) {
+      os = 'iOS';
     } else {
-      if (defaultTargetPlatform == TargetPlatform.android) {
-        // Android-specific code
-        AndroidDeviceInfo? androidInfo = await deviceInfo.androidInfo;
-        if (androidInfo != null) {
-          deviceName = androidInfo.device;
-          notifyListeners();
-          if (kDebugMode) {
-            debugPrint('Running on ${androidInfo.device}');
-          }
-        } else {
-          // Handle the case when Android device information is null
-          deviceName = 'Unknown Android device';
-          // Optionally, you may want to log or print an error message
-          print('Error: Android Device Info is null');
-        }
-      } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        deviceName = iosInfo.name;
-        if (kDebugMode) {
-          debugPrint('Running on ${iosInfo.name}');
-        } // iOS-specific code
-      } else {
-        // Handle the case when none of the specified platforms is detected
-        deviceName = 'Unknown platform';
-      }
+      os = 'Other';
     }
+
     bool validated = await _validateForm();
     if (validated) {
       runFunctionForApi(
         context,
         functionToRunAfterService: (value) async {
-          debugPrint(
-              "${emailController.text.trim()}, ${passwordController.text.trim()}, ${deviceName}");
           if (value != null && value is UserLoginModel) {
-            debugPrint("USER LOGIN SUCCESSFULLY");
-            // userTokenBucket = value.;
-            debugPrint("token from user $userTokenBucket");
+            newUserUserNameBucket = value.data?.user?.username;
+            newUserFullNameBucket = value.data?.user?.fullName;
+            newUserCountryBucket = value.data?.user?.country;
+            newUserEmailBucket = value.data?.user?.email;
+            newUserDevice = value.data?.user?.deviceName;
+
+            userTokenBucket = value.data?.token;
+
             context.goNamed(homeRoute);
           } else {
-            debugPrint("Error occurred during login.");
+            errorDialogWithClose(context,
+                text: loginErrorMessage!, icon: Icons.error_outline_sharp);
+
             // Handle error case here, such as displaying an error message to the user
           }
         },
         functionToRunService: userLoginService(
-            emailAddress: emailController.text.trim(),
-            password: passwordController.text.trim(),
-            deviceName: deviceName!),
+          emailAddress: emailController.text.trim(),
+          password: passwordController.text.trim(),
+          deviceName: os,
+        ),
       );
     }
   }

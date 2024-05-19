@@ -3,24 +3,6 @@ import '../utilities/imports/generalImport.dart';
 class BaseModel extends BaseViewModel {
   final bool _onboardingComplete = false;
   bool get isOnboardingComplete => _onboardingComplete;
-  // entering pin in transaction pin confirmation pin page
-  String pinEntry = '';
-  // transaction pin
-  List<TextEditingController> pinControllers = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController()
-  ];
-  bool pinErrorBool = false;
-  List<FocusNode> pinFocusNode = [
-    FocusNode(),
-    FocusNode(),
-    FocusNode(),
-    FocusNode()
-  ];
-  int attempt = 1;
-  int lastIndex = 0;
 
   // for showing error text under text fields
   showErrorText(
@@ -46,47 +28,6 @@ class BaseModel extends BaseViewModel {
     } else {
       return S();
     }
-  }
-
-  //remove whatever focus is in place
-  void clearFocus(BuildContext context) {
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    // if (currentFocus.hasPrimaryFocus) {
-    //   currentFocus.unfocus();
-    // }
-    currentFocus.unfocus();
-    notifyListeners();
-  }
-
-  clearOtpField() {
-    lastIndex = 0;
-    pinEntry = '';
-    for (var i = 0; i < pinControllers.length; i++) {
-      pinControllers[i].clear();
-    }
-    notifyListeners();
-  }
-
-  // back space count to count how many times back space is pressed
-  int backSpaceCount = 0;
-  // this happens when backspace is pressed
-  Future onDeletePressedFunction(BuildContext context, int index) {
-    debugPrint(
-        '1.pinentry is ${pinEntry} and index is ${index} pinControllers[index - 1 < 0 ? 0 : index - 1].text.isNotEmpty is ${pinControllers[index - 1 < 0 ? 0 : index - 1].text.isNotEmpty}');
-
-    if (pinControllers[index - 1 < 0 ? 0 : index - 1].text.isNotEmpty) {
-      if (pinEntry.isNotEmpty) {
-        pinEntry = pinEntry.substring(0, index - 1);
-        pinFocusNode[index].previousFocus();
-        FocusScope.of(context).previousFocus();
-        pinControllers[index - 1 < 0 ? 0 : index - 1].clear();
-      }
-    }
-    return Future.delayed(const Duration(milliseconds: 200));
-  }
-
-  updatePinField() {
-    lastIndex = pinEntry.length;
   }
 
   //For displaying a success page

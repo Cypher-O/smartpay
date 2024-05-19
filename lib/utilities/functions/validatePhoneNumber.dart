@@ -22,22 +22,4 @@ class ValidatePhoneNumber {
     // return regex.hasMatch(input) || regex2.hasMatch(input);
     return regex2.hasMatch(input);
   }
-
-  bool isValidLogin(String input) {
-    final RegExp emailRegex = RegExp(
-        r"^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?\.[a-zA-Z0-9]{2,}$");
-    // final RegExp phoneNumberRegex = RegExp(r'^[0-9]{3}[0-9]*$');
-    final RegExp phoneNumberRegex = RegExp(r'^[0-9]{11}$');
-
-    if (input.length < 1) {
-      // Not enough characters to determine validity
-      return false;
-    } else if (input.startsWith(RegExp(r'^[a-zA-Z]'))) {
-      // Starts with a letter, likely an email address
-      return emailRegex.hasMatch(input);
-    } else {
-      // Starts with a number, likely a phone number
-      return phoneNumberRegex.hasMatch(input);
-    }
-  }
 }

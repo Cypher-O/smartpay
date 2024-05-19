@@ -8,8 +8,6 @@ ScreenSize sS(
 ) =>
     ScreenSize(context: context);
 
-DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-
 //constant strings
 const String onboardedKey = 'onboarded';
 const String introCompletedKey = 'introCompleted';
@@ -37,18 +35,17 @@ const String actionCompleteString = 'Action completed';
 
 // primary swatch color map
 final Map<int, Color> primarySwatchColor = {
-  50: Colors.green.withOpacity(0.1),
-  100: Colors.green.withOpacity(0.2),
-  200: Colors.green.withOpacity(0.3),
-  300: Colors.green.withOpacity(0.4),
-  400: Colors.green.withOpacity(0.5),
-  500: Colors.green.withOpacity(0.6),
-  600: Colors.green.withOpacity(0.7),
-  700: Colors.green.withOpacity(0.8),
-  800: Colors.green.withOpacity(0.9),
-  900: Colors.green.withOpacity(1.0),
+  50: Colors.blue.withOpacity(0.1),
+  100: Colors.blue.withOpacity(0.2),
+  200: Colors.blue.withOpacity(0.3),
+  300: Colors.blue.withOpacity(0.4),
+  400: Colors.blue.withOpacity(0.5),
+  500: Colors.blue.withOpacity(0.6),
+  600: Colors.blue.withOpacity(0.7),
+  700: Colors.blue.withOpacity(0.8),
+  800: Colors.blue.withOpacity(0.9),
+  900: Colors.blue.withOpacity(1.0),
 };
-
 // constant sizes
 const double hPadding = 16;
 
@@ -62,4 +59,3 @@ const String isDarkModeString = 'isDarkMode'; //for dark mode bool
 const String currentThemeString =
     'currentTheme'; //for getting the current settings
 
-// String selectedCountry = '  Select Country';

@@ -1,21 +1,18 @@
 import 'package:smartpay/utilities/imports/generalImport.dart';
 
 class OtpVerification extends StatelessWidget {
-  // String emailController;
-
   const OtpVerification({
     Key? key,
-    // required this.emailController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint('Received Email in OTP Page: $emailController');
     return ViewModelBuilder<OtpLoginViewModel>.reactive(
       viewModelBuilder: () => OtpLoginViewModel(),
-      // OtpLoginViewModel(emailController: emailController),
       onViewModelReady: (model) async {
         maskedEmail = model.maskEmail(newUserEmailBucket!);
+        model.startCountdown(model.countdownDuration);
+        model.sendEmailOtp(context);
       },
       disposeViewModel: false,
       builder: (context, model, child) => BaseUi(
@@ -68,7 +65,10 @@ class OtpVerification extends StatelessWidget {
                     children: [
                       GestureDetector(
                         child: GeneralTextDisplay(
-                          'Resend code (00:30)',
+                          // 'Resend code (00:30)',
+                          model.isCountdownActive
+                              ? 'Resend code (${model.countdownDisplay})'
+                              : 'Resend code',
                           AppColors.gray3(),
                           1,
                           16,
@@ -77,9 +77,11 @@ class OtpVerification extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                         onTap: () async {
-                          // Clear the otpControllers
-                          model.otpControllers
-                              .forEach((controller) => controller.clear());
+                          if (!model.isCountdownActive) {
+                            model.startCountdown(model.countdownDuration);
+
+                            model.sendEmailOtp(context);
+                          }
                         },
                       ),
                     ],
@@ -87,7 +89,6 @@ class OtpVerification extends StatelessWidget {
                   S(h: 80),
                   ButtonWidget(
                     () {
-                      // context.goNamed(signupFormRoute);
                       model.verifyEmailOtp(context);
                     },
                     model.areAllBoxesFilled() ? blueDark : disabledButton,
@@ -107,11 +108,12 @@ class OtpVerification extends StatelessWidget {
                   ),
                   Container(
                     width: sS(context).w - 16,
-                    height: sS(context).h - 550,
+                    height: sS(context).h - 500,
                     child: CustomKeyboard(
+                      onDeletePressed: () {
+                        model.updateOtpInput(context, 'delete');
+                      },
                       onKeyPressed: (value) {
-                        debugPrint("Pressed: $value");
-                        // Handle erase button press
                         model.updateOtpInput(context, value);
                       },
                     ),

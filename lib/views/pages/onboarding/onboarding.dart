@@ -1,4 +1,5 @@
 import '../../../utilities/imports/generalImport.dart';
+
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({Key? key}) : super(key: key);
 
@@ -42,8 +43,9 @@ class OnboardingPage extends StatelessWidget {
                   return model.pages[index];
                 },
               ),
+              S(h: ScreenSize(context: context).cH(height: 400)),
               rowPositioned(
-                  top: 680,
+                  top: 700,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: List<Widget>.generate(
@@ -81,20 +83,20 @@ class OnboardingPage extends StatelessWidget {
                     ),
                   )),
               rowPositioned(
-                top: 730,
+                top: 740,
                 child: ButtonWidget(
                   () async {
                     context.goNamed(loginRoute);
                   },
                   AppColors.blue(),
                   328,
-                  68,
+                  60,
                   Text(
                     "Get Started",
                     style: TextStyle(
                       fontSize: 18,
                       color: AppColors.white(),
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   Alignment.center,

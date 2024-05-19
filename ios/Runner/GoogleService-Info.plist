@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>831869189264-njd8i37etvblieobacfjmcpupniu7jo8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.831869189264-njd8i37etvblieobacfjmcpupniu7jo8</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAKxB6U_0UHchiP68Fvf8p4itBkMiTNHqE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>831869189264</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.smartpay</string>
+	<key>PROJECT_ID</key>
+	<string>smartpay-23089</string>
+	<key>STORAGE_BUCKET</key>
+	<string>smartpay-23089.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:831869189264:ios:80e146f4ee1be659de6c15</string>
+</dict>
+</plist>

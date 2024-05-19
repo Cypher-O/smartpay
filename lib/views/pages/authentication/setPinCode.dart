@@ -1,5 +1,4 @@
 import 'package:smartpay/utilities/imports/generalImport.dart';
-import 'package:smartpay/utilities/imports/reUsableWidgetImport.dart';
 
 class SetPinCode extends StatelessWidget {
   const SetPinCode({
@@ -8,10 +7,8 @@ class SetPinCode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint('Received Email in OTP Page: $emailController');
     return ViewModelBuilder<SetPinViewModel>.reactive(
       viewModelBuilder: () => SetPinViewModel(),
-      // OtpLoginViewModel(emailController: emailController),
       onViewModelReady: (model) async {},
       disposeViewModel: false,
       builder: (context, model, child) => BaseUi(
@@ -59,27 +56,7 @@ class SetPinCode extends StatelessWidget {
                     // },
                   ),
                   S(h: 40),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     GestureDetector(
-                  //       child: GeneralTextDisplay(
-                  //         'Resend code (00:30)',
-                  //         AppColors.gray3(),
-                  //         1,
-                  //         16,
-                  //         FontWeight.w600,
-                  //         'Resend code',
-                  //         textAlign: TextAlign.center,
-                  //       ),
-                  //       onTap: () async {
-                  //         // Clear the otpControllers
-                  //         model.otpControllers
-                  //             .forEach((controller) => controller.clear());
-                  //       },
-                  //     ),
-                  //   ],
-                  // ),
+                
                   S(h: 80),
                   ButtonWidget(
                     () {
@@ -95,7 +72,6 @@ class SetPinCode extends StatelessWidget {
                       );
                     },
                     blueDark,
-                    // AppColors.blue(),
                     382,
                     60,
                     Text(
@@ -114,10 +90,11 @@ class SetPinCode extends StatelessWidget {
                     width: sS(context).w - 16,
                     height: sS(context).h - 550,
                     child: CustomKeyboard(
+                      onDeletePressed: () {
+                        model.updateOtpInput(context, 'delete');
+                      },
                       onKeyPressed: (value) {
-                        debugPrint("Pressed: $value");
-                        // Handle erase button press
-                        // model.updateOtpInput(context, value);
+                       
                       },
                     ),
                   ),

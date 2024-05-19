@@ -1,32 +1,23 @@
 // import for flutter and dart plugin
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:google_fonts/google_fonts.dart';
-export 'package:keyboard_dismisser/keyboard_dismisser.dart';
 export 'package:line_icons/line_icons.dart';
 export 'package:page_transition/page_transition.dart';
 export "package:shared_preferences/shared_preferences.dart";
 export 'package:stacked/stacked.dart' hide RouteData;
-export 'package:url_launcher/url_launcher.dart';
-export 'package:visibility_detector/visibility_detector.dart';
 export 'package:go_router/go_router.dart';
-export 'package:app_links/app_links.dart';
 export 'package:websafe_svg/websafe_svg.dart';
-export 'package:camera/camera.dart';
-export 'package:local_auth/local_auth.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:path/path.dart';
-export 'package:country_picker/country_picker.dart';
 export 'package:http/http.dart';
-export 'package:line_icons/line_icon.dart';
-export 'package:flutter_animate/flutter_animate.dart';
-export 'package:awesome_notifications/awesome_notifications.dart';
 export 'package:dropdown_search/dropdown_search.dart'
     hide defaultScrollNotificationPredicate;
-export 'package:screenshot/screenshot.dart';
-export 'package:gallery_saver/gallery_saver.dart';
 export 'package:share_plus/share_plus.dart';
 export 'package:file_picker/file_picker.dart';
-export 'package:flutter_pdfview/flutter_pdfview.dart';
 export 'package:flutter_native_splash/flutter_native_splash.dart';
-export 'package:device_info_plus/device_info_plus.dart';
-export 'package:flutter_swipe_detector/flutter_swipe_detector.dart';
+export 'package:image_gallery_saver/image_gallery_saver.dart';
+export 'package:firebase_auth/firebase_auth.dart';
+export 'package:google_sign_in/google_sign_in.dart';
+export 'package:the_apple_sign_in/scope.dart';
+export 'package:cloud_firestore/cloud_firestore.dart';
+

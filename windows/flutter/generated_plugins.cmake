@@ -3,9 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  app_links
-  awesome_notifications
-  local_auth_windows
+  cloud_firestore
+  firebase_auth
+  firebase_core
   share_plus
   url_launcher_windows
 )

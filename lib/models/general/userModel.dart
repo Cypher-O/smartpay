@@ -3,7 +3,7 @@ import 'package:smartpay/utilities/imports/generalImport.dart';
 class UserModel {
   bool? status;
   String? message;
-  UserDetails? data;
+  UserData? data;
   // UserData? userData;
 
   UserModel({
@@ -17,7 +17,7 @@ class UserModel {
     return UserModel(
       status: json['status'],
       message: json['message'],
-      data: json['data'] != null ? UserDetails.fromJson(json['data']) : null,
+      data: json['data'] != null ? UserData.fromJson(json['data']) : null,
       // userData: json['data'] != null ? UserData.fromJson(json['data']) : null,
     );
   }
@@ -56,6 +56,29 @@ class UserData {
   }
 }
 
+class ResponseModel {
+  bool? status;
+  String? message;
+
+  ResponseModel({
+    this.status,
+    this.message,
+  });
+
+  factory ResponseModel.fromJson(Map<String, dynamic> json) {
+    return ResponseModel(
+      status: json['status'],
+      message: json['message'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['status'] = this.status;
+    data['message'] = this.message;
+    return data;
+  }
+}
 
 
 
