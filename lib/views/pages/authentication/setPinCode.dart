@@ -56,7 +56,6 @@ class SetPinCode extends StatelessWidget {
                     // },
                   ),
                   S(h: 40),
-                
                   S(h: 80),
                   ButtonWidget(
                     () {
@@ -67,7 +66,8 @@ class SetPinCode extends StatelessWidget {
                         "You've completed the onboarding, you can start using",
                         "Get Started",
                         () {
-                          context.pop(context);
+                          // context.pop(context);
+                          context.goNamed(homeRoute);
                         },
                       );
                     },
@@ -88,13 +88,13 @@ class SetPinCode extends StatelessWidget {
                   ),
                   Container(
                     width: sS(context).w - 16,
-                    height: sS(context).h - 550,
+                    height: sS(context).h - 500,
                     child: CustomKeyboard(
                       onDeletePressed: () {
                         model.updateOtpInput(context, 'delete');
                       },
                       onKeyPressed: (value) {
-                       
+                        model.updateOtpInput(context, value);
                       },
                     ),
                   ),

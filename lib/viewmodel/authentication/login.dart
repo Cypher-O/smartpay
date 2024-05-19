@@ -24,6 +24,9 @@ class LoginViewModel extends BaseModel {
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
 
+  GoogleSignInAccount? user;
+  
+
   // change email function
   onChangedFunctionEmail(BuildContext context) {
     emailFocusNode.addListener(() {

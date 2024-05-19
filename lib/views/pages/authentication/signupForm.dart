@@ -22,10 +22,9 @@ class SignupForm extends StatelessWidget {
                 top: 128,
                 left: 16,
                 child: Container(
-                  width: sS(context).w - 128,
+                  width: sS(context).w - 105,
                   child: Wrap(
                     alignment: WrapAlignment.start,
-                    //  mainAxisSize: MainAxisSize.min,
                     children: [
                       GeneralTextDisplay("Hey there! tell us a bit about ",
                           AppColors.black(), 2, 20, FontWeight.bold, ""),
@@ -102,9 +101,7 @@ class SignupForm extends StatelessWidget {
                               errorBool: model.userNameError),
                           S(h: 10),
                           CountryPicker(
-                            onSelect: (Countries selectedCountry) {
-                             
-                            },
+                            onSelect: (Countries selectedCountry) {},
                             countries: model.countriesList,
                             // errorTextActive: model.selectedCountryError,
                           ),
@@ -113,6 +110,32 @@ class SignupForm extends StatelessWidget {
                           //     text: "Please select a country",
                           //     errorBool: model.selectedCountryError),
                           S(h: 10),
+
+                          // FormattedTextFields(
+                          //   keyInputType: TextInputType.phone,
+                          //   textFieldController: model.phoneController,
+                          //   textFieldHint: "08012345678",
+                          //   noBorder: true,
+                          //   autoFocus: false,
+                          //   inputFormatters: [
+                          //     LengthLimitingTextInputFormatter(11)
+                          //   ],
+                          //   onChangedFunction: () {
+                          //     model.onChangedFunctionPhone(context);
+                          //   },
+                          //   errorTextActive: model.phoneError,
+                          //   focusNode: model.phoneFocusNode,
+                          // ),
+                          // S(h: 5),
+                          // model.showErrorText(
+                          //     text: model.phoneController.text.isEmpty
+                          //         ? 'Empty Field, enter phone number'
+                          //         : !ValidatePhoneNumber().isValidPhone(
+                          //                 model.phoneController.text.trim())
+                          //             ? 'Invalid phone number, Please enter a valid phone number'
+                          //             : "",
+                          //     errorBool: model.phoneError),
+                          // S(h: 10),
                           FormattedTextFields(
                             keyInputType: TextInputType.text,
                             textFieldController: model.passwordController,

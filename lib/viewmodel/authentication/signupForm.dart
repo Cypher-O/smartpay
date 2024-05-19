@@ -4,6 +4,7 @@ class SignupFormViewModel extends BaseModel {
   // final mainScrollController = ScrollController();
   final fullNameController = TextEditingController();
   final userNameController = TextEditingController();
+  final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
@@ -45,10 +46,12 @@ class SignupFormViewModel extends BaseModel {
   bool selectedCountryError = false;
   bool passwordError = false;
   bool confirmPasswordError = false;
+  bool phoneError = false;
 
   // focus node
   FocusNode fullNameFocusNode = FocusNode();
   FocusNode userNameFocusNode = FocusNode();
+  FocusNode phoneFocusNode = FocusNode();
   FocusNode selectedCountryFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
   FocusNode confirmPasswordFocusNode = FocusNode();
@@ -75,6 +78,22 @@ class SignupFormViewModel extends BaseModel {
     });
     fullNameError = !validateName(fullNameController.text);
     notifyListeners();
+  }
+
+  onChangedFunctionPhone(BuildContext context) {
+    phoneFocusNode.addListener(() {
+      if (phoneFocusNode.hasFocus == false) {
+        phoneError = false;
+        notifyListeners();
+      }
+    });
+    if (ValidatePhoneNumber().isValidPhone(phoneController.text.trim())) {
+      phoneError = false;
+      notifyListeners();
+    } else {
+      phoneError = true;
+      notifyListeners();
+    }
   }
 
   onChangedFunctionPassword() {
@@ -183,7 +202,7 @@ class SignupFormViewModel extends BaseModel {
 
             notifyListeners();
 
-            context.goNamed(homeRoute);
+            context.goNamed(setPinCodeRoute);
           } else {
             errorDialogWithClose(context,
                 text: registerErrorMessage!, icon: Icons.error_outline_sharp);

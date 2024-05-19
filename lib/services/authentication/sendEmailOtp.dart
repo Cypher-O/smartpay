@@ -15,6 +15,7 @@ sendEmailOtpService({required String emailAddress}) async {
       headers: requestHeaders,
       body: json.encode(data),
     );
+    debugPrint("${response.body}");
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       final Map<String, dynamic> decodedResponse = json.decode(response.body);

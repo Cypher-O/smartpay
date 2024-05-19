@@ -202,8 +202,16 @@ class LoginScreen extends StatelessWidget {
                             children: [
                               // google button
                               GestureDetector(
-                                onTap: () {
-                                  AuthMethods().signInWithGoogle(context);
+                                onTap: () async {
+                                  final user =
+                                      await AuthMethods.signInWithGoogle();
+                                  if (user == null) {
+                                    errorDialogWithClose(context,
+                                        text: "Sign in Failed");
+                                  } else {
+                                    debugPrint("${model.user?.email}");
+                                    context.goNamed(homeRoute);
+                                  }
                                 },
                                 child: RectangularTile(
                                     imagePath: 'assets/images/google.png'),

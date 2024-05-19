@@ -1,81 +1,83 @@
-
 import 'package:smartpay/utilities/imports/generalImport.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 class AuthMethods {
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  static final _googleSignIn = GoogleSignIn();
 
-  getCurrentUser() async {
-    return await auth.currentUser;
-  }
+  // final FirebaseAuth auth = FirebaseAuth.instance;
+  static Future<GoogleSignInAccount?> signInWithGoogle() =>
+      _googleSignIn.signIn();
 
-  signInWithGoogle(BuildContext context) async {
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    final GoogleSignIn googleSignIn = GoogleSignIn();
+  // getCurrentUser() async {
+  //   return await auth.currentUser;
+  // }
 
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
+  // signInWithGoogle(BuildContext context) async {
+  // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-    final GoogleSignInAuthentication? googleSignInAuthentication =
-        await googleSignInAccount?.authentication;
+  // final GoogleSignInAccount? googleSignInAccount =
+  //     await googleSignIn.signIn();
 
-    final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentication?.idToken,
-        accessToken: googleSignInAuthentication?.accessToken);
+  // final GoogleSignInAuthentication? googleSignInAuthentication =
+  //     await googleSignInAccount?.authentication;
 
-    UserCredential result = await firebaseAuth.signInWithCredential(credential);
+  // final AuthCredential credential = GoogleAuthProvider.credential(
+  //     idToken: googleSignInAuthentication?.idToken,
+  //     accessToken: googleSignInAuthentication?.accessToken);
 
-    User? userDetails = result.user;
+  // UserCredential result = await firebaseAuth.signInWithCredential(credential);
 
-    if (result != null) {
-      Map<String, dynamic> userInfoMap = {
-        "email": userDetails!.email,
-        "name": userDetails.displayName,
-        "imgUrl": userDetails.photoURL,
-        "id": userDetails.uid,
-      };
-      DatabaseMethods().addUser(userDetails.uid, userInfoMap).then((value) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home()));
-        // context.goNamed(homeRoute);
+  // User? userDetails = result.user;
 
-      });
-    }
-  }
+  // if (result != null) {
+  //   Map<String, dynamic> userInfoMap = {
+  //     "email": userDetails!.email,
+  //     "name": userDetails.displayName,
+  //     "imgUrl": userDetails.photoURL,
+  //     "id": userDetails.uid,
+  //   };
+  //   DatabaseMethods().addUser(userDetails.uid, userInfoMap).then((value) {
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => Home()));
+  //     // context.goNamed(homeRoute);
 
-  Future<User> signInWithApple({List<Scope> scopes = const []}) async {
-    final result = await TheAppleSignIn.performRequests(
-        [AppleIdRequest(requestedScopes: scopes)]);
+  //   });
+  // }
+  // }
 
-    switch (result.status) {
-      case AuthorizationStatus.authorized:
-        final AppleIdCredential = result.credential!;
-        final oAuthProvider = OAuthProvider('apple.com');
-        final credential = oAuthProvider.credential(
-            idToken: String.fromCharCodes(AppleIdCredential.identityToken!));
-        final UserCredential = await auth.signInWithCredential(credential);
-        final firebaseUser = UserCredential.user!;
-        if (scopes.contains(Scope.fullName)) {
-          final fullName = AppleIdCredential.fullName;
-          if (fullName != null &&
-              fullName.givenName != null &&
-              fullName.familyName != null) {
-            final displayName = '${fullName.givenName} ${fullName.familyName}';
-            await firebaseUser.updateDisplayName(displayName);
-          }
-        }
-        return firebaseUser;
-      case AuthorizationStatus.error:
-        throw PlatformException(
-            code: 'ERROR_AUTHORIZATION_DENIED',
-            message: result.error.toString());
+//   Future<User> signInWithApple({List<Scope> scopes = const []}) async {
+//     final result = await TheAppleSignIn.performRequests(
+//         [AppleIdRequest(requestedScopes: scopes)]);
 
-      case AuthorizationStatus.cancelled:
-        throw PlatformException(
-            code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
+//     switch (result.status) {
+//       case AuthorizationStatus.authorized:
+//         final AppleIdCredential = result.credential!;
+//         final oAuthProvider = OAuthProvider('apple.com');
+//         final credential = oAuthProvider.credential(
+//             idToken: String.fromCharCodes(AppleIdCredential.identityToken!));
+//         final UserCredential = await auth.signInWithCredential(credential);
+//         final firebaseUser = UserCredential.user!;
+//         if (scopes.contains(Scope.fullName)) {
+//           final fullName = AppleIdCredential.fullName;
+//           if (fullName != null &&
+//               fullName.givenName != null &&
+//               fullName.familyName != null) {
+//             final displayName = '${fullName.givenName} ${fullName.familyName}';
+//             await firebaseUser.updateDisplayName(displayName);
+//           }
+//         }
+//         return firebaseUser;
+//       case AuthorizationStatus.error:
+//         throw PlatformException(
+//             code: 'ERROR_AUTHORIZATION_DENIED',
+//             message: result.error.toString());
 
-      default:
-        throw UnimplementedError();
-    }
-  }
+//       case AuthorizationStatus.cancelled:
+//         throw PlatformException(
+//             code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
+
+//       default:
+//         throw UnimplementedError();
+//     }
+//   }
 }

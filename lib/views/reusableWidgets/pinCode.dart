@@ -59,7 +59,7 @@ class PinCodeBox extends StatelessWidget {
         obscureText: true,
         controller: viewModel.otpControllers[index],
         focusNode: viewModel.otpFocusNodes[index],
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.none,
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         maxLength: 1,
