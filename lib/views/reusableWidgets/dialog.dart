@@ -1,5 +1,3 @@
-import 'package:smartpay/utilities/imports/flutterImport.dart';
-
 import '../../../utilities/imports/generalImport.dart';
 
 Widget customDialog(child,
