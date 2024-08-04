@@ -202,7 +202,9 @@ class PageWidget extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20.0),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        context.goNamed(loginRoute);
+                      },
                       child: Text(
                         'Skip',
                         style: TextStyle(
